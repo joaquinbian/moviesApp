@@ -1,20 +1,25 @@
 import {StackScreenProps} from '@react-navigation/stack';
 import React, {useEffect} from 'react';
-import {View, Text, Button} from 'react-native';
+import {View, Text, Button, ActivityIndicator} from 'react-native';
 import movieDB from '../api/MovieDB';
 import {MovieDBNowPlaying} from '../interfaces/movieDBInterface';
+import {useMovies} from '../hooks/useMovies';
 
 interface Props extends StackScreenProps<any, any> {}
 
 const HomeScreen = ({navigation}: Props) => {
-  useEffect(() => {
-    movieDB.get<MovieDBNowPlaying>('/now_playing').then(({data}) => {
-      console.log(data.results[0].title);
-    });
-  }, []);
+  const {movies, loading} = useMovies();
+
+  if (loading) {
+    return (
+      <View>
+        <ActivityIndicator size={30} color="red" />
+      </View>
+    );
+  }
   return (
     <View>
-      <Text>Soy la home</Text>
+      <Text>{movies[0].title}</Text>
       <Button title="go detail" onPress={() => navigation.navigate('movie')} />
     </View>
   );
