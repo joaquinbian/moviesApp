@@ -30,12 +30,10 @@ const HomeScreen = ({navigation}: Props) => {
   return (
     <ScrollView>
       <View style={{...styles.container, marginTop: top + 20}}>
-        {/* <MoviePoster movie={movies[0]} /> */}
-        {/* {''} */}
-        {/* <Button title="go detail" onPress={() => navigation.navigate('movie')} /> */}
+        <Button title="goDetail" onPress={() => navigation.navigate('MovieDetail')} />
         <View style={{height: 440}}>
           <Carousel
-            data={nowPlaying!}
+            data={nowPlaying}
             renderItem={({item}: {item: Movie}) => <MoviePoster movie={item} />}
             sliderWidth={width}
             itemWidth={300}
