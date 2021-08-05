@@ -5,7 +5,7 @@
 // 2- seleccionamos el lenguaje
 // 3- nos pide el nombre de la interfaz raiz (MovieDBNowPlaying)
 
-export interface MovieDBNowPlaying {
+export interface MovieDBResponse {
   dates: Dates;
   page: number;
   results: Movie[];

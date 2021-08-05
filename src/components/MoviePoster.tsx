@@ -15,7 +15,7 @@ const MoviePoster = ({movie, height = 420, width = 300}: Props) => {
   return (
     // el view controla el tamaño de la imagen, le seteamos el tamaño al view y luego a la imagen
     // le decimos que ocupe todo el espacio que pueda
-    <View style={{width, height}}>
+    <View style={{width, height, marginHorizontal: 5}}>
       <View style={styles.imgContainer}>
         {/*
             a la imagen la envolvemos en un view porque la etiqueta Image no acepta la prop

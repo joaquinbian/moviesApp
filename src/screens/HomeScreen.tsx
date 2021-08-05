@@ -9,13 +9,14 @@ import MoviePoster from '../components/MoviePoster';
 import movieDB from '../api/MovieDB';
 import {Movie} from '../interfaces/movieDBInterface';
 import {FlatList, ScrollView} from 'react-native-gesture-handler';
+import MoviesFlatList from '../components/MoviesFlatList';
 
 interface Props extends StackScreenProps<any, any> {}
 interface CarouselProps extends CarouselProperties<any> {}
 
 const HomeScreen = ({navigation}: Props) => {
   const {width} = useWindowDimensions();
-  const {movies, loading} = useMovies();
+  const {loading, nowPlaying, popular, upcoming, topRated} = useMovies();
   const {top} = useSafeAreaInsets();
 
   if (loading) {
@@ -34,21 +35,19 @@ const HomeScreen = ({navigation}: Props) => {
         {/* <Button title="go detail" onPress={() => navigation.navigate('movie')} /> */}
         <View style={{height: 440}}>
           <Carousel
-            data={movies}
+            data={nowPlaying!}
             renderItem={({item}: {item: Movie}) => <MoviePoster movie={item} />}
             sliderWidth={width}
             itemWidth={300}
           />
         </View>
-        <View style={{height: 200, backgroundColor: 'red'}}>
-          <Text style={{fontSize: 20, fontWeight: 'bold'}}>En cine</Text>
-          <FlatList
-            data={movies}
-            renderItem={({item}: {item: Movie}) => <MoviePoster movie={item} />}
-            keyExtractor={item => item.id}
-            horizontal={true}
-          />
-        </View>
+        {/* peliculas populares */}
+
+        <MoviesFlatList movies={popular} title="Popular" />
+        <MoviesFlatList movies={topRated} title="Top rated" />
+        <MoviesFlatList movies={upcoming} title="Upcoming" />
+
+        {/* <MoviesFlatList movies={movies} title="Top rated" /> */}
       </View>
     </ScrollView>
   );
