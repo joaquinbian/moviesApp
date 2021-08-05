@@ -23,7 +23,8 @@ const HomeScreen = ({navigation}: Props) => {
   return (
     <View style={{...styles.container, marginTop: top + 20}}>
       <MoviePoster movie={movies[0]} />
-      <Button title="go detail" onPress={() => navigation.navigate('movie')} />
+      {/* {''} */}
+      {/* <Button title="go detail" onPress={() => navigation.navigate('movie')} /> */}
     </View>
   );
 };
