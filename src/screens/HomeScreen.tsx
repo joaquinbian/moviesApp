@@ -30,7 +30,7 @@ const HomeScreen = ({navigation}: Props) => {
   return (
     <ScrollView>
       <View style={{...styles.container, marginTop: top + 20}}>
-        <Button title="goDetail" onPress={() => navigation.navigate('MovieDetail')} />
+        {/* <Button title="goDetail" onPress={() => navigation.navigate('MovieDetail')} /> */}
         <View style={{height: 440}}>
           <Carousel
             data={nowPlaying}

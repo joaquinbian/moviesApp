@@ -9,7 +9,7 @@ interface Props {
   width?: number;
   height?: number;
 }
-const MoviePoster = ({movie, height = 420, width = 300}: Props) => {
+const MoviePoster = ({movie, height = 430, width = 300}: Props) => {
   //le pasamos los valores de las medidas para poder reutilizarlo,
   // si no le pasamos medidas, esas van a ser las medidas por defecto
   const uri = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
