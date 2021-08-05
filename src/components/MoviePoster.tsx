@@ -5,16 +5,23 @@ import {Movie} from '../interfaces/movieDBInterface';
 
 interface Props {
   movie: Movie;
+  width?: number;
+  height?: number;
 }
-const MoviePoster = ({movie}: Props) => {
-  console.log(movie.poster_path);
+const MoviePoster = ({movie, height = 420, width = 300}: Props) => {
+  //le pasamos los valores de las medidas para poder reutilizarlo,
+  // si no le pasamos medidas, esas van a ser las medidas por defecto
   const uri = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
   return (
     // el view controla el tamaño de la imagen, le seteamos el tamaño al view y luego a la imagen
     // le decimos que ocupe todo el espacio que pueda
-    <View style={styles.posterContainer}>
-      {/* <Text>{movie.title}</Text> */}
+    <View style={{width, height}}>
       <View style={styles.imgContainer}>
+        {/*
+            a la imagen la envolvemos en un view porque la etiqueta Image no acepta la prop
+            elevation del shadow, y es importante en andorid, entonces lo ponemos en un view, 
+            y le agregamos la sombra al view
+        */}
         <Image source={{uri}} style={styles.img} />
       </View>
     </View>
@@ -23,11 +30,6 @@ const MoviePoster = ({movie}: Props) => {
 
 export default MoviePoster;
 const styles = StyleSheet.create({
-  posterContainer: {
-    height: 420,
-    width: 300,
-    // backgroundColor: 'red',
-  },
   img: {
     flex: 1,
     borderRadius: 25,
@@ -39,11 +41,11 @@ const styles = StyleSheet.create({
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
-      height: 15,
+      height: 5,
     },
-    shadowOpacity: 0.35,
-    shadowRadius: 2.49,
+    shadowOpacity: 0.36,
+    shadowRadius: 6.68,
 
-    elevation: 25,
+    elevation: 12,
   },
 });
