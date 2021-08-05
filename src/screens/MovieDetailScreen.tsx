@@ -1,6 +1,7 @@
 import {StackScreenProps} from '@react-navigation/stack';
 import React from 'react';
 import {View, Text, Button, Image, StyleSheet, useWindowDimensions} from 'react-native';
+import {ScrollView} from 'react-native-gesture-handler';
 import {RootStackParams} from '../navigation/NavigationStack';
 
 interface Props extends StackScreenProps<RootStackParams, 'MovieDetail'> {}
@@ -13,15 +14,8 @@ const MovieDetailScreen = ({navigation, route}: Props) => {
   const {width} = useWindowDimensions();
   console.log(width);
   return (
-    <View style={{alignItems: 'center'}}>
-      <View
-        style={{
-          // flex: 1,
-          width: width - 30,
-          height: 470,
-          marginTop: 5,
-          // marginHorizontal: 15,
-        }}>
+    <ScrollView style={{flex: 1}}>
+      <View style={{...styles.imgContainer, width: width - 30}}>
         <Image
           source={{
             uri,
@@ -29,7 +23,10 @@ const MovieDetailScreen = ({navigation, route}: Props) => {
           style={styles.img}
         />
       </View>
-    </View>
+      <View style={styles.infoContainer}>
+        <Text style={styles.title}>{movie.title}</Text>
+      </View>
+    </ScrollView>
   );
 };
 
@@ -40,4 +37,23 @@ const styles = StyleSheet.create({
     flex: 1,
     borderRadius: 20,
   },
+  imgContainer: {
+    alignSelf: 'center',
+    height: 470,
+    marginVertical: 10,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.9,
+    // backgroundColor: 'blue',
+    shadowRadius: 4.65,
+
+    elevation: 15,
+  },
+  infoContainer: {
+    // backgroundColor: 'red',
+  },
+  title: {fontWeight: 'bold', fontSize: 25, marginLeft: 10},
 });
