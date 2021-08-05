@@ -1,6 +1,6 @@
 import {StackScreenProps} from '@react-navigation/stack';
 import React, {useEffect} from 'react';
-import {View, Text, Button, ActivityIndicator} from 'react-native';
+import {View, Text, Button, ActivityIndicator, StyleSheet} from 'react-native';
 import movieDB from '../api/MovieDB';
 import {MovieDBNowPlaying} from '../interfaces/movieDBInterface';
 import {useMovies} from '../hooks/useMovies';
@@ -12,13 +12,13 @@ const HomeScreen = ({navigation}: Props) => {
 
   if (loading) {
     return (
-      <View>
+      <View style={styles.container}>
         <ActivityIndicator size={30} color="red" />
       </View>
     );
   }
   return (
-    <View>
+    <View style={styles.container}>
       <Text>{movies[0].title}</Text>
       <Button title="go detail" onPress={() => navigation.navigate('movie')} />
     </View>
@@ -26,3 +26,11 @@ const HomeScreen = ({navigation}: Props) => {
 };
 
 export default HomeScreen;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});
