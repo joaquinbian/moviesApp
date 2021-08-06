@@ -1,11 +1,12 @@
 import {StackScreenProps} from '@react-navigation/stack';
 import React from 'react';
 import {View, Text, Button, Image, StyleSheet, useWindowDimensions} from 'react-native';
-import {ScrollView} from 'react-native-gesture-handler';
+import {FlatList, ScrollView} from 'react-native-gesture-handler';
 import {RootStackParams} from '../navigation/NavigationStack';
 import {Rating} from 'react-native-ratings';
 import useMovieDetail from '../hooks/useMovieDetail';
 // import icon from "react-native-vector-icons"
+import {Cast} from '../interfaces/movieDBInterface';
 
 interface Props extends StackScreenProps<RootStackParams, 'MovieDetail'> {}
 
@@ -17,7 +18,7 @@ const MovieDetailScreen = ({navigation, route}: Props) => {
   const {isLoading, fullMovie, cast} = useMovieDetail(movie.id);
   console.log(width);
   // console.log(FullMovie, 'soy la full movie pa');
-  console.log(cast, 'soy el cast pa');
+  console.log(isLoading, 'soy el cast pa');
   return (
     <ScrollView style={{flex: 1}}>
       <View style={{...styles.imgContainer, width: width - 30}}>
@@ -35,8 +36,15 @@ const MovieDetailScreen = ({navigation, route}: Props) => {
           <Rating readonly type="star" imageSize={25} startingValue={movie.vote_average / 2} />
         </View>
       </View>
-      <View style={styles.overview}>
-        <Text>{movie.overview}</Text>
+      <View style={styles.moreInfoContainer}>
+        <View style={styles.sectionContainer}>
+          <Text style={styles.sectionTitle}>Review</Text>
+          <Text>{movie.overview}</Text>
+        </View>
+        <View>
+          <Text style={styles.sectionTitle}>Cast</Text>
+          <FlatList data={cast} renderItem={({item}: {item: Cast}) => <Text>{item.name}</Text>} horizontal />
+        </View>
       </View>
     </ScrollView>
   );
@@ -72,14 +80,21 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 25,
     marginLeft: 10,
-    // backgroundColor: 'green',
     width: '55%',
   },
   movieStats: {
     alignItems: 'center',
-    // justifyContent: 'center',
   },
-  overview: {
-    marginHorizontal: 10,
+  moreInfoContainer: {
+    marginHorizontal: 15,
+    marginVertical: 10,
+    backgroundColor: 'red',
+  },
+  sectionTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  sectionContainer: {
+    marginVertical: 10,
   },
 });
