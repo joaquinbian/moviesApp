@@ -4,6 +4,7 @@ import {View, Text, Button, Image, StyleSheet, useWindowDimensions} from 'react-
 import {ScrollView} from 'react-native-gesture-handler';
 import {RootStackParams} from '../navigation/NavigationStack';
 import {Rating} from 'react-native-ratings';
+import useMovieDetail from '../hooks/useMovieDetail';
 // import icon from "react-native-vector-icons"
 
 interface Props extends StackScreenProps<RootStackParams, 'MovieDetail'> {}
@@ -13,7 +14,10 @@ const MovieDetailScreen = ({navigation, route}: Props) => {
   console.log(movie);
   const uri = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
   const {width} = useWindowDimensions();
+  const {isLoading, FullMovie, Cast} = useMovieDetail(movie.id);
   console.log(width);
+  // console.log(FullMovie, 'soy la full movie pa');
+  console.log(Cast, 'soy el cast pa');
   return (
     <ScrollView style={{flex: 1}}>
       <View style={{...styles.imgContainer, width: width - 30}}>
