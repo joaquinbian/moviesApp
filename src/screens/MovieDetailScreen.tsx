@@ -5,8 +5,8 @@ import {FlatList, ScrollView} from 'react-native-gesture-handler';
 import {RootStackParams} from '../navigation/NavigationStack';
 import {Rating} from 'react-native-ratings';
 import useMovieDetail from '../hooks/useMovieDetail';
-// import icon from "react-native-vector-icons"
 import {Cast} from '../interfaces/movieDBInterface';
+import CastCard from '../components/CastCard';
 
 interface Props extends StackScreenProps<RootStackParams, 'MovieDetail'> {}
 
@@ -43,7 +43,7 @@ const MovieDetailScreen = ({navigation, route}: Props) => {
         </View>
         <View>
           <Text style={styles.sectionTitle}>Cast</Text>
-          <FlatList data={cast} renderItem={({item}: {item: Cast}) => <Text>{item.name}</Text>} horizontal />
+          <FlatList data={cast} renderItem={({item}: {item: Cast}) => <CastCard cast={item} />} horizontal />
         </View>
       </View>
     </ScrollView>
