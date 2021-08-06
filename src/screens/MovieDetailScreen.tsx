@@ -10,7 +10,7 @@ interface Props extends StackScreenProps<RootStackParams, 'MovieDetail'> {}
 
 const MovieDetailScreen = ({navigation, route}: Props) => {
   const movie = route.params;
-  // console.log(movie.id);
+  console.log(movie);
   const uri = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
   const {width} = useWindowDimensions();
   console.log(width);
@@ -28,8 +28,11 @@ const MovieDetailScreen = ({navigation, route}: Props) => {
         <Text style={styles.title}>{movie.title}</Text>
         <View style={styles.movieStats}>
           <Text style={{marginVertical: 5}}>{movie.vote_average} / 10</Text>
-          <Rating readonly type="star" imageSize={25} startingValue={movie.vote_average / 2} style={{marginLeft: 15}} />
+          <Rating readonly type="star" imageSize={25} startingValue={movie.vote_average / 2} />
         </View>
+      </View>
+      <View style={styles.overview}>
+        <Text>{movie.overview}</Text>
       </View>
     </ScrollView>
   );
@@ -58,8 +61,8 @@ const styles = StyleSheet.create({
     elevation: 15,
   },
   infoContainer: {
-    // backgroundColor: 'red',
     flexDirection: 'row',
+    marginHorizontal: 5,
   },
   title: {
     fontWeight: 'bold',
@@ -71,5 +74,8 @@ const styles = StyleSheet.create({
   movieStats: {
     alignItems: 'center',
     // justifyContent: 'center',
+  },
+  overview: {
+    marginHorizontal: 10,
   },
 });
