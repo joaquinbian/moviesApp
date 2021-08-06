@@ -1,6 +1,6 @@
 import {StackScreenProps} from '@react-navigation/stack';
 import React from 'react';
-import {View, Text, Button, Image, StyleSheet, useWindowDimensions} from 'react-native';
+import {View, Text, Button, Image, StyleSheet, useWindowDimensions, ActivityIndicator} from 'react-native';
 import {FlatList, ScrollView} from 'react-native-gesture-handler';
 import {RootStackParams} from '../navigation/NavigationStack';
 import {Rating} from 'react-native-ratings';
@@ -30,7 +30,10 @@ const MovieDetailScreen = ({navigation, route}: Props) => {
         />
       </View>
       <View style={styles.infoContainer}>
-        <Text style={styles.title}>{movie.title}</Text>
+        <View style={{width: '55%'}}>
+          <Text style={styles.title}>{movie.title}</Text>
+          <Text style={styles.releaseDate}>{movie.release_date}</Text>
+        </View>
         <View style={styles.movieStats}>
           <Text style={{marginVertical: 5}}>{movie.vote_average} / 10</Text>
           <Rating readonly type="star" imageSize={25} startingValue={movie.vote_average / 2} />
@@ -43,7 +46,11 @@ const MovieDetailScreen = ({navigation, route}: Props) => {
         </View>
         <View>
           <Text style={styles.sectionTitle}>Cast</Text>
-          <FlatList data={cast} renderItem={({item}: {item: Cast}) => <CastCard cast={item} />} horizontal />
+          {isLoading ? (
+            <ActivityIndicator size={20} color="blue" />
+          ) : (
+            <FlatList data={cast} renderItem={({item}: {item: Cast}) => <CastCard cast={item} />} horizontal />
+          )}
         </View>
       </View>
     </ScrollView>
@@ -75,12 +82,18 @@ const styles = StyleSheet.create({
   infoContainer: {
     flexDirection: 'row',
     marginHorizontal: 5,
+    // backgroundColor: 'red',
   },
   title: {
     fontWeight: 'bold',
     fontSize: 25,
     marginLeft: 10,
-    width: '55%',
+    // width: '55%',
+    // backgroundColor: 'green',
+  },
+  releaseDate: {
+    marginLeft: 15,
+    color: 'gray',
   },
   movieStats: {
     alignItems: 'center',
@@ -88,7 +101,7 @@ const styles = StyleSheet.create({
   moreInfoContainer: {
     marginHorizontal: 15,
     marginVertical: 10,
-    backgroundColor: 'red',
+    // backgroundColor: 'red',
   },
   sectionTitle: {
     fontSize: 20,

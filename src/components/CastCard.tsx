@@ -30,12 +30,22 @@ export default CastCard;
 
 const styles = StyleSheet.create({
   cardContainer: {
-    backgroundColor: '#fff',
+    backgroundColor: '#F0F0F0',
+    // backgroundColor: 'red',
     flexDirection: 'row',
     padding: 4,
     marginHorizontal: 10,
     marginVertical: 5,
     borderRadius: 5,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.34,
+    shadowRadius: 6.27,
+
+    elevation: 5,
   },
   img: {
     height: 50,
