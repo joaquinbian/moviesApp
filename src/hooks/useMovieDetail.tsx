@@ -5,15 +5,15 @@ import {FullMovie, Cast, MovieCast} from '../interfaces/movieDBInterface';
 //esta va a ser la interface del estado, lo que va a exponer
 interface MovieDetails {
   isLoading: boolean;
-  FullMovie: FullMovie | undefined; //el fullMovie es un objeto con los datos de la peli, por eso solo dice FullMovie
-  Cast: Cast[];
+  fullMovie: FullMovie | undefined; //el fullMovie es un objeto con los datos de la peli, por eso solo dice FullMovie
+  cast: Cast[];
 }
 
 const useMovieDetail = (movieId: number) => {
   const [state, setState] = useState<MovieDetails>({
     isLoading: true,
-    FullMovie: undefined,
-    Cast: [],
+    fullMovie: undefined,
+    cast: [],
   });
 
   const getMovieDetails = async () => {
@@ -21,12 +21,12 @@ const useMovieDetail = (movieId: number) => {
     const respDetail = movieDB.get<FullMovie>(`/${movieId}`);
     const respCast = movieDB.get<MovieCast>(`/${movieId}/credits`);
 
-    const resp = await Promise.all([respDetail, respCast]);
+    const [movieDetailsResp, movieCastResp] = await Promise.all([respDetail, respCast]);
 
     setState({
       isLoading: false,
-      FullMovie: resp[0].data,
-      Cast: resp[1].data.cast,
+      fullMovie: movieDetailsResp.data,
+      cast: movieCastResp.data.cast,
     });
   };
 

@@ -14,10 +14,10 @@ const MovieDetailScreen = ({navigation, route}: Props) => {
   console.log(movie);
   const uri = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
   const {width} = useWindowDimensions();
-  const {isLoading, FullMovie, Cast} = useMovieDetail(movie.id);
+  const {isLoading, fullMovie, cast} = useMovieDetail(movie.id);
   console.log(width);
   // console.log(FullMovie, 'soy la full movie pa');
-  console.log(Cast, 'soy el cast pa');
+  console.log(cast, 'soy el cast pa');
   return (
     <ScrollView style={{flex: 1}}>
       <View style={{...styles.imgContainer, width: width - 30}}>
