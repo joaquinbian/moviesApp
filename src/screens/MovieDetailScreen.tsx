@@ -7,6 +7,7 @@ import {Rating} from 'react-native-ratings';
 import useMovieDetail from '../hooks/useMovieDetail';
 import {Cast} from '../interfaces/movieDBInterface';
 import CastCard from '../components/CastCard';
+import movieDB from '../api/MovieDB';
 
 interface Props extends StackScreenProps<RootStackParams, 'MovieDetail'> {}
 
@@ -18,7 +19,8 @@ const MovieDetailScreen = ({navigation, route}: Props) => {
   const {isLoading, fullMovie, cast} = useMovieDetail(movie.id);
   console.log(width);
   // console.log(FullMovie, 'soy la full movie pa');
-  console.log(isLoading, 'soy el cast pa');
+  console.log(cast, 'soy el cast pa');
+
   return (
     <ScrollView style={{flex: 1}}>
       <View style={{...styles.imgContainer, width: width - 30}}>
@@ -41,13 +43,21 @@ const MovieDetailScreen = ({navigation, route}: Props) => {
       </View>
       <View style={styles.moreInfoContainer}>
         <View style={styles.sectionContainer}>
+          <Text style={styles.sectionTitle}>Genres</Text>
+          <View style={{flexDirection: 'row'}}>
+            {isLoading ? (
+              <ActivityIndicator size={20} color="red" />
+            ) : (
+              fullMovie?.genres.map(g => <Text key={g.id}>{g.name} </Text>)
+            )}
+          </View>
           <Text style={styles.sectionTitle}>Review</Text>
           <Text>{movie.overview}</Text>
         </View>
         <View>
           <Text style={styles.sectionTitle}>Cast</Text>
           {isLoading ? (
-            <ActivityIndicator size={20} color="blue" />
+            <ActivityIndicator size={20} color="red" />
           ) : (
             <FlatList data={cast} renderItem={({item}: {item: Cast}) => <CastCard cast={item} />} horizontal />
           )}

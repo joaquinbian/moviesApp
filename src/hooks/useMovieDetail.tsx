@@ -22,6 +22,7 @@ const useMovieDetail = (movieId: number) => {
     const respCast = movieDB.get<MovieCast>(`/${movieId}/credits`);
 
     const [movieDetailsResp, movieCastResp] = await Promise.all([respDetail, respCast]);
+    // console.log(movieCastResp.data.cast, 'soy el cast');
 
     setState({
       isLoading: false,
