@@ -11,12 +11,15 @@ const CastCard = ({cast}: Props) => {
   const uri = `https://image.tmdb.org/t/p/w500/${profile_path}`;
   return (
     <View style={styles.cardContainer}>
-      <Image
-        source={{
-          uri,
-        }}
-        style={styles.img}
-      />
+      {cast.profile_path && (
+        <Image
+          source={{
+            uri,
+          }}
+          style={styles.img}
+        />
+      )}
+
       <View style={styles.cardInfoContainer}>
         <Text>{name}</Text>
         <Text style={styles.characterName}>{character}</Text>
