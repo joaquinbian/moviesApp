@@ -48,7 +48,7 @@ const MovieDetailScreen = ({navigation, route}: Props) => {
             {isLoading ? (
               <ActivityIndicator size={20} color="red" />
             ) : (
-              fullMovie?.genres.map(g => <Text key={g.id}>{g.name} </Text>)
+              <Text>{fullMovie?.genres.map(g => g.name).join(', ')}</Text>
             )}
           </View>
           <Text style={styles.sectionTitle}>Review</Text>
