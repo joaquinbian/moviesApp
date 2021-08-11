@@ -11,6 +11,7 @@ import {Movie} from '../interfaces/movieDBInterface';
 import MoviePoster from '../components/MoviePoster';
 import MoviesFlatList from '../components/MoviesFlatList';
 import GradientBackground from '../components/GradientBackground';
+import {getColors} from '../helpers/getColores';
 
 interface Props extends StackScreenProps<any, any> {}
 interface CarouselProps extends CarouselProperties<any> {}
@@ -25,8 +26,9 @@ const HomeScreen = ({navigation}: Props) => {
     const movie = nowPlaying[index];
     const uri = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
     // console.log(uri);
-    const colors = await ImageColors.getColors(uri, {});
-    console.log(colors, 'soy el colors');
+    // const colors = await ImageColors.getColors(uri, {});
+    const {primary, secondary} = await getColors(uri);
+    console.log(primary, secondary, 'soy el colors');
   };
 
   if (loading) {
