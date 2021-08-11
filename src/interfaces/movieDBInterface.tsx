@@ -6,7 +6,7 @@
 // 3- nos pide el nombre de la interfaz raiz (MovieDBNowPlaying)
 
 export interface MovieDBResponse {
-  dates: Dates;
+  dates?: Dates;
   page: number;
   results: Movie[];
   total_pages: number;

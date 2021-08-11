@@ -4,6 +4,8 @@ import {View, Text, Button, ActivityIndicator, StyleSheet, useWindowDimensions} 
 import Carousel, {CarouselProperties} from 'react-native-snap-carousel';
 import {FlatList, ScrollView} from 'react-native-gesture-handler';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import ImageColors from 'react-native-image-colors';
+
 import {useMovies} from '../hooks/useMovies';
 import {Movie} from '../interfaces/movieDBInterface';
 import MoviePoster from '../components/MoviePoster';
@@ -17,6 +19,15 @@ const HomeScreen = ({navigation}: Props) => {
   const {width} = useWindowDimensions();
   const {loading, nowPlaying, popular, upcoming, topRated} = useMovies();
   const {top} = useSafeAreaInsets();
+
+  const getMovieColors = async (index: number) => {
+    console.log(nowPlaying[index].poster_path);
+    const movie = nowPlaying[index];
+    const uri = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
+    // console.log(uri);
+    const colors = await ImageColors.getColors(uri, {});
+    console.log(colors, 'soy el colors');
+  };
 
   if (loading) {
     return (
@@ -38,6 +49,10 @@ const HomeScreen = ({navigation}: Props) => {
               renderItem={({item}: {item: Movie}) => <MoviePoster movie={item} />}
               sliderWidth={width}
               itemWidth={300}
+              onSnapToItem={index => {
+                getMovieColors(index);
+              }} //onSnapToItem se ejecuta cada vez que el carousel gira y de el podemos
+              //sacar el index del elemento actual
             />
           </View>
           {/* peliculas populares */}
