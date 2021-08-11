@@ -1,5 +1,5 @@
 import {StackScreenProps} from '@react-navigation/stack';
-import React, {useEffect} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {View, Text, Button, ActivityIndicator, StyleSheet, useWindowDimensions} from 'react-native';
 import Carousel, {CarouselProperties} from 'react-native-snap-carousel';
 import {FlatList, ScrollView} from 'react-native-gesture-handler';
@@ -12,6 +12,7 @@ import MoviePoster from '../components/MoviePoster';
 import MoviesFlatList from '../components/MoviesFlatList';
 import GradientBackground from '../components/GradientBackground';
 import {getColors} from '../helpers/getColores';
+import {GradientContext} from '../context/GradientContext';
 
 interface Props extends StackScreenProps<any, any> {}
 interface CarouselProps extends CarouselProperties<any> {}
@@ -20,16 +21,31 @@ const HomeScreen = ({navigation}: Props) => {
   const {width} = useWindowDimensions();
   const {loading, nowPlaying, popular, upcoming, topRated} = useMovies();
   const {top} = useSafeAreaInsets();
+  const {setMainColors} = useContext(GradientContext);
 
   const getMovieColors = async (index: number) => {
-    console.log(nowPlaying[index].poster_path);
+    // console.log(nowPlaying[index].poster_path);
     const movie = nowPlaying[index];
     const uri = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
     // console.log(uri);
     // const colors = await ImageColors.getColors(uri, {});
-    const {primary, secondary} = await getColors(uri);
-    console.log(primary, secondary, 'soy el colors');
+    const {primary = 'black', secondary = 'red'} = await getColors(uri);
+    //le ponemmos esos colores por defecto porque sino se queja de que
+    //puede ser tmb undefined
+
+    setMainColors({primary, secondary});
+
+    // console.log(primary, secondary, 'soy el colors');
   };
+
+  useEffect(() => {
+    //cuando se cargue el arreglo de pelis,
+    //que setee el fondo con los colores de
+    //la primera
+    if (nowPlaying.length > 0) {
+      getMovieColors(0);
+    }
+  }, [nowPlaying]);
 
   if (loading) {
     return (

@@ -31,6 +31,8 @@ export const GradientProvider = ({children}: ProviderProps) => {
     setColors(colors);
   };
   const setPreviousColors = (colors: ColorsState) => {
+    console.log('previus colors');
+
     setPrevColors(colors);
   };
 
