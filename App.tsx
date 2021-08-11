@@ -7,8 +7,8 @@ import FadeScreen from './src/screens/FadeScreen';
 const App = () => {
   return (
     <NavigationContainer>
-      {/* <NavigationStack /> */}
-      <FadeScreen />
+      <NavigationStack />
+      {/* <FadeScreen /> */}
     </NavigationContainer>
   );
 };
